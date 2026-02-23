@@ -2,7 +2,19 @@ from __future__ import annotations
 from io import BufferedIOBase, BytesIO
 from ..utils.mimetype import MIMEType
 
+
 class File(object):
+    """A File object represents a file that can be uploaded to the Square Cloud Blob storage.
+    
+    Attributes
+    --------------
+    bytes: bytes
+        The content of the file in bytes.
+    size: int
+        The size of the file in bytes.
+    mimetype: str
+        The mimetype of the file.
+    """
     __slots__ = ("bytes", "size", "__mimetype")
     MIN_SIZE = 1024
     MAX_SIZE = 100 * 1024 * 1024
