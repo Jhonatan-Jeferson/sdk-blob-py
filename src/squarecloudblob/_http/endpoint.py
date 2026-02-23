@@ -14,11 +14,10 @@ class APIEndpoint(object):
 
     def __init__(self, name: str, method: str):
         details: dict[str, list[str]|str] = self.ENDPOINTS[name.upper()]
-        method = method.upper()
-        if method not in details["methods"]:
-            raise ValueError(f"Method {method} is not allowed for endpoint {details['path']}")
-        self.method: str = method
+        self.method: str = method.upper()
         self.path: str = cast(str, details["path"])
+        if self.method not in details["methods"]:
+            raise ValueError(f"Method {method} is not allowed for endpoint {details['path']}")
         
     def __eq__(self, other: object) -> bool:
         return (isinstance(other, APIEndpoint) and self.method == other.method and self.path == other.path)
@@ -27,9 +26,6 @@ class APIEndpoint(object):
         return self.url
 
     def __repr__(self) -> str:
-        """
-        Returns a string representation of the APIEndpoint instance.
-        """
         return f"APIEndpoint(method={self.method}, path={self.path})"
     
     @property
